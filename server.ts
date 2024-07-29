@@ -1,5 +1,5 @@
-const express = require('express')
-const hospitalRouter = require('./src/routes/HospitalRouter.js')
+import express from 'express';
+import hospitalRouter from './src/routes/HospitalRouter'
 const app = express()
 const port = 32
 

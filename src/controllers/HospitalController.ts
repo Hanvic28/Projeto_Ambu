@@ -1,9 +1,11 @@
-const HospitalModel = require('../models/HospitalModel.js');
-const Joi = require('joi')
+import { HospitalModel } from '../models/HospitalModel.js';
+import { Hospital } from 'src/@types/hospital';
+import Joi from 'joi';
+import { Request, Response } from 'express';
 
-class HospitalController{
+export class HospitalController{
 
-    async insereHospital(req, res){
+    async insereHospital(req: Request, res: Response){
 
             await validaEntrada(req.body);
 
@@ -18,10 +20,10 @@ class HospitalController{
 
     }
 
-    async alteraHospital(hospital){
+    async alteraHospital(Id: number, hospital: Hospital){
 
         const hospitalModel = new HospitalModel();
-        const retorno = await HospitalModel.alteraHospital(hospital);
+        const retorno = await hospitalModel.alteraHospital(Id, hospital);
 
         if(retorno.length){
             console.log("O Hospital foi alterado no banco corretamente com o Id " + retorno);
@@ -31,7 +33,7 @@ class HospitalController{
 
     }
 
-    async selecionaHospital(req, res){
+    async selecionaHospital(req: Request, res: Response){
 
         const hospitalModel = new HospitalModel();
         const retorno = await hospitalModel.selecionaHospital();
@@ -44,10 +46,10 @@ class HospitalController{
 
     }
 
-    async selecionaHospitalPorId(hospital){
+    async selecionaHospitalPorId(hospital: number){
 
         const hospitalModel = new HospitalModel();
-        const retorno = await HospitalModel.selecionaHospitalPorId(hospital);
+        const retorno = await hospitalModel.selecionaHospitalPorId(hospital);
 
         if(retorno.length){
             console.log("O Hospital foi selecionado no banco pelo Id " + retorno);
@@ -57,10 +59,10 @@ class HospitalController{
 
     }
 
-    async selecionaHospitalPorNome(hospital){
+    async selecionaHospitalPorNome(hospital: string){
 
         const hospitalModel = new HospitalModel();
-        const retorno = await HospitalModel.selecionaHospitalPorNome(hospital);
+        const retorno = await hospitalModel.selecionaHospitalPorNome(hospital);
 
         if(retorno.length){
             console.log("O Hospital foi selecionado no banco pelo Nome " + retorno);
@@ -70,10 +72,10 @@ class HospitalController{
 
     }
 
-    async selecionaHospitalPorHospital(hospital){
+    async selecionaHospitalPorHospital(hospital: number){
 
         const hospitalModel = new HospitalModel();
-        const retorno = await HospitalModel.selecionaHospitalPorCargo(hospital);
+        const retorno = await hospitalModel.selecionaHospitalPorCargo(hospital);
 
         if(retorno.length){
             console.log("Os Hospitals foram selecionados no banco pelo Hospital  " + retorno);
@@ -83,10 +85,10 @@ class HospitalController{
 
     }
 
-    async deletaHospital(hospital){
+    async deletaHospital(hospital: number){
 
         const hospitalModel = new HospitalModel();
-        const retorno = await HospitalModel.deletaHospital(hospital);
+        const retorno = await hospitalModel.deletaHospital(hospital);
 
         if(retorno.length){
             console.log("O Hospital foi deletado com sucesso com o Id " + retorno);
@@ -98,7 +100,7 @@ class HospitalController{
     
 }
 
-async function validaEntrada (dadosEntrada){
+async function validaEntrada (dadosEntrada: number){
     
     try{
 
@@ -113,7 +115,5 @@ async function validaEntrada (dadosEntrada){
     }catch(erro){
 
     throw new Error('Erro de validação')
+    }
 }
-}
-
-module.exports = HospitalController

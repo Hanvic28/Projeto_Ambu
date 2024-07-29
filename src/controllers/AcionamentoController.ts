@@ -1,8 +1,9 @@
-const AcionamentoModel = require('../models/AcionamentoModel.js');
+import { Acionamento } from 'src/@types/acionamento';
+import { AcionamentoModel } from '../models/AcionamentoModel.js';
 
 class AcionamentoController{
 
-    async insereacionamento(acionamento){
+    async insereacionamento(acionamento: Acionamento){
 
         const acionamentoModel = new AcionamentoModel();
         const retorno = await acionamentoModel.insereAcionamento(acionamento);
@@ -15,10 +16,10 @@ class AcionamentoController{
 
     }
 
-    async alteraAcionamento(acionamento){
+    async alteraAcionamento(Id: number, acionamento: Acionamento) {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.alteraAcionamento(acionamento);
+        const retorno = await acionamentoModel.alteraAcionamento(Id, acionamento);
 
         if(retorno.length){
             console.log("O Acionamento foi alterado no banco corretamente com o Id " + retorno);
@@ -28,10 +29,10 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamento(acionamento){
+    async selecionaAcionamento(acionamento: Acionamento){
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.selecionaAcionamento(acionamento);
+        const retorno = await acionamentoModel.selecionaAcionamentos(acionamento);
 
         if(retorno.length){
             console.log("Todos os Acionamentos foram selecionados");
@@ -41,7 +42,7 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamentoPorId(acionamento){
+    async selecionaAcionamentoPorId(acionamento: number){
 
         const acionamentoModel = new AcionamentoModel();
         const retorno = await acionamentoModel.selecionaAcionamentoPorId(acionamento);
@@ -54,7 +55,7 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamentoPorNome(acionamento){
+    async selecionaAcionamentoPorNome(acionamento: string){
 
         const acionamentoModel = new AcionamentoModel();
         const retorno = await acionamentoModel.selecionaAcionamentoPorNome(acionamento);
@@ -67,7 +68,7 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamentoPoracionamento(acionamento){
+    async selecionaAcionamentoPoracionamento(acionamento: number){
 
         const acionamentoModel = new AcionamentoModel();
         const retorno = await acionamentoModel.selecionaAcionamentoPorCargo(acionamento);
@@ -80,7 +81,7 @@ class AcionamentoController{
 
     }
 
-    async deletaAcionamento(acionamento){
+    async deletaAcionamento(acionamento: number){
 
         const acionamentoModel = new AcionamentoModel();
         const retorno = await acionamentoModel.deletaAcionamento(acionamento);

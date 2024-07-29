@@ -1,14 +1,14 @@
+import knex from 'knex';
+import { Funcionario } from 'src/@types/funcionario';
 
-const knex = require('./conexao.js')
+export class FuncionarioModel{
 
-class FuncionarioModel{
-
-    async insereFuncionario(funcionario){
+    async insereFuncionario(funcionario: Funcionario){
         const retorno = await knex('funcionario').insert({nome: funcionario.nome, telefone: funcionario.telefone, data_nascimento: funcionario.data_nascimento, sexo: funcionario.sexo});
         return retorno
     };
 
-    async alteraFuncionario(Id, funcionario){
+    async alteraFuncionario(Id: number, funcionario: Funcionario){
         const retorno = await knex('funcionario').update({nome: funcionario.nome, telefone: funcionario.telefone, data_nascimento: funcionario.data_nascimento, sexo: funcionario.sexo}).where('Id', Id);
         return retorno
     };
@@ -18,25 +18,23 @@ class FuncionarioModel{
         return retorno
     };
 
-    async selecionaFuncionarioPorId(Id){
+    async selecionaFuncionarioPorId(Id: number){
         const retorno = await knex('funcionario').select().where('Id', Id);
         return retorno
     };
 
-    async selecionaFuncionarioPorNome(nome){
+    async selecionaFuncionarioPorNome(nome: string){
         const retorno = await knex('funcionario').select().where('nome','Like', `%${nome}%`);
         return retorno
     };
 
-    async selecionaFuncionarioPorCargo(Id){
+    async selecionaFuncionarioPorCargo(Id: number){
         const retorno = await knex('funcionario').select().where('cargo_Id', Id);
         return retorno
     };
 
-    async deletaFuncionario(Id){
+    async deletaFuncionario(Id: number){
         const retorno = await knex('funcionario').del().where('Id', Id);
         return retorno
     };
 }
-
-module.exports = FuncionarioModel;

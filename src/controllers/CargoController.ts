@@ -1,8 +1,9 @@
-const CargoModel = require('../models/CargoModel.js');
+import { Cargo } from 'src/@types/cargo';
+import { CargoModel } from '../models/CargoModel.js';
 
 class CargoController{
 
-    async insereCargo(cargo){
+    async insereCargo(cargo: Cargo){
 
         const cargoModel = new CargoModel();
         const retorno = await cargoModel.insereCargo(cargo);
@@ -15,10 +16,10 @@ class CargoController{
 
     }
 
-    async alteraCargo(cargo){
+    async alteraCargo(Id: number, cargo: Cargo){
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.alteraCargo(cargo);
+        const retorno = await cargoModel.alteraCargo(Id, cargo);
 
         if(retorno.length){
             console.log("O Cargo foi alterado no banco corretamente com o Id " + retorno);
@@ -28,10 +29,10 @@ class CargoController{
 
     }
 
-    async selecionaCargo(cargo){
+    async selecionaCargo(){
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.selecionaCargo(cargo);
+        const retorno = await cargoModel.selecionaCargos();
 
         if(retorno.length){
             console.log("Todos os cargos foram selecionados");
@@ -41,7 +42,7 @@ class CargoController{
 
     }
 
-    async selecionaCargoPorId(cargo){
+    async selecionaCargoPorId(cargo: number){
 
         const cargoModel = new CargoModel();
         const retorno = await cargoModel.selecionaCargoPorId(cargo);
@@ -54,7 +55,7 @@ class CargoController{
 
     }
 
-    async selecionaCargoPorNome(cargo){
+    async selecionaCargoPorNome(cargo: string){
 
         const cargoModel = new CargoModel();
         const retorno = await cargoModel.selecionaCargoPorNome(cargo);
@@ -67,7 +68,7 @@ class CargoController{
 
     }
 
-    async selecionaCargoPorCargo(cargo){
+    async selecionaCargoPorCargo(cargo: number){
 
         const cargoModel = new CargoModel();
         const retorno = await cargoModel.selecionaCargoPorCargo(cargo);
@@ -80,7 +81,7 @@ class CargoController{
 
     }
 
-    async deletaCargo(cargo){
+    async deletaCargo(cargo: number){
 
         const cargoModel = new CargoModel();
         const retorno = await cargoModel.deletaCargo(cargo);

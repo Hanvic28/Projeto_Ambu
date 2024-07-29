@@ -1,8 +1,9 @@
-const knex = require('./conexao.js')
+import knex from 'knex';
+import { Hospital } from 'src/@types/hospital';
 
-class HospitalModel{
+export class HospitalModel{
 
-    async insereHospital(hospital){
+    async insereHospital(hospital: Hospital){
 
         try{
             
@@ -15,8 +16,8 @@ class HospitalModel{
 
     };
   
-    async alteraHospital(Id, hospital){
-        const retorno = await knex('hospital').update({nome: nome.hospital, nome_contato: nome_contato.hospital, telefone: telefone.hospital}).where('Id', Id);
+    async alteraHospital(Id: number, hospital: Hospital){
+        const retorno = await knex('hospital').update({nome: hospital.nome, nome_contato: hospital.nome_contato, telefone: hospital.telefone}).where('Id', Id);
         return retorno
     };
   
@@ -25,25 +26,23 @@ class HospitalModel{
         return retorno
     };
   
-    async selecionaHospitalPorId(Id){
+    async selecionaHospitalPorId(Id: number){
         const retorno = await knex('hospital').select().where('Id', Id);
         return retorno
     };
   
-    async selecionaHospitalPorNome(nome){
+    async selecionaHospitalPorNome(nome: string){
         const retorno = await knex('hospital').select().where('nome','Like', `%${nome}%`);
         return retorno
     };
   
-    async selecionaHospitalPorCargo(Id){
+    async selecionaHospitalPorCargo(Id: number){
         const retorno = await knex('hospital').select().where('cargo_Id', Id);
         return retorno
     };
   
-    async deletaHospital(Id){
+    async deletaHospital(Id: number){
         const retorno = await knex('hospital').del().where('Id', Id);
         return retorno
     };
   }
-
-  module.exports = HospitalModel;
