@@ -3,117 +3,96 @@ import { Hospital } from 'src/@types/hospital';
 import Joi from 'joi';
 import { Request, Response } from 'express';
 
-export class HospitalController{
+export class HospitalController {
+	async insereHospital(req: Request, res: Response) {
+		await validaEntrada(req.body);
 
-    async insereHospital(req: Request, res: Response){
+		if (req.body.nome == 'Alexandre') {
+			throw new Error('Não existe');
+		}
 
-            await validaEntrada(req.body);
+		const hospitalModel = new HospitalModel();
+		const retorno = await hospitalModel.insereHospital(req.body);
 
-            if(req.body.nome == 'Alexandre'){
-                throw new Error("Não existe")
-            };
+		res.status(201).send('Objeto Inserido ' + retorno);
+	}
 
-        const hospitalModel = new HospitalModel();
-        const retorno = await hospitalModel.insereHospital(req.body);
+	async alteraHospital(Id: number, hospital: Hospital): Promise<number> {
+		const hospitalModel = new HospitalModel();
+		const retorno: number = await hospitalModel.alteraHospital(Id, hospital);
 
-        res.status(201).send("Objeto Inserido " + retorno)
+		if (retorno > 0) {
+			console.log('O Hospital foi alterado no banco corretamente com o Id ' + retorno);
+		}
 
-    }
+		return retorno;
+	}
 
-    async alteraHospital(Id: number, hospital: Hospital){
+	async selecionaHospital(req: Request, res: Response): Promise<Hospital[]> {
+		const hospitalModel = new HospitalModel();
+		const retorno: Hospital[] = await hospitalModel.selecionaHospital();
 
-        const hospitalModel = new HospitalModel();
-        const retorno = await hospitalModel.alteraHospital(Id, hospital);
+		if (retorno.length) {
+			res.status(200).send(retorno);
+		}
 
-        if(retorno.length){
-            console.log("O Hospital foi alterado no banco corretamente com o Id " + retorno);
-        }
+		return retorno;
+	}
 
-        return retorno
+	async selecionaHospitalPorId(hospital: number): Promise<Hospital[]> {
+		const hospitalModel = new HospitalModel();
+		const retorno: Hospital[] = await hospitalModel.selecionaHospitalPorId(hospital);
 
-    }
+		if (retorno.length) {
+			console.log('O Hospital foi selecionado no banco pelo Id ' + retorno);
+		}
 
-    async selecionaHospital(req: Request, res: Response){
+		return retorno;
+	}
 
-        const hospitalModel = new HospitalModel();
-        const retorno = await hospitalModel.selecionaHospital();
+	async selecionaHospitalPorNome(hospital: string) {
+		const hospitalModel = new HospitalModel();
+		const retorno = await hospitalModel.selecionaHospitalPorNome(hospital);
 
-        if(retorno.length){
-            res.status(200).send(retorno);
-        }
+		if (retorno.length) {
+			console.log('O Hospital foi selecionado no banco pelo Nome ' + retorno);
+		}
 
-        return retorno
+		return retorno;
+	}
 
-    }
+	async selecionaHospitalPorHospital(hospital: number) {
+		const hospitalModel = new HospitalModel();
+		const retorno = await hospitalModel.selecionaHospitalPorCargo(hospital);
 
-    async selecionaHospitalPorId(hospital: number){
+		if (retorno.length) {
+			console.log('Os Hospitals foram selecionados no banco pelo Hospital  ' + retorno);
+		}
 
-        const hospitalModel = new HospitalModel();
-        const retorno = await hospitalModel.selecionaHospitalPorId(hospital);
+		return retorno;
+	}
 
-        if(retorno.length){
-            console.log("O Hospital foi selecionado no banco pelo Id " + retorno);
-        }
+	async deletaHospital(hospital: number): Promise<number> {
+		const hospitalModel: HospitalModel = new HospitalModel();
+		const retorno: number = await hospitalModel.deletaHospital(hospital);
 
-        return retorno
+		if (retorno > 0) {
+			console.log('O Hospital foi deletado com sucesso com o Id ' + retorno);
+		}
 
-    }
-
-    async selecionaHospitalPorNome(hospital: string){
-
-        const hospitalModel = new HospitalModel();
-        const retorno = await hospitalModel.selecionaHospitalPorNome(hospital);
-
-        if(retorno.length){
-            console.log("O Hospital foi selecionado no banco pelo Nome " + retorno);
-        }
-
-        return retorno
-
-    }
-
-    async selecionaHospitalPorHospital(hospital: number){
-
-        const hospitalModel = new HospitalModel();
-        const retorno = await hospitalModel.selecionaHospitalPorCargo(hospital);
-
-        if(retorno.length){
-            console.log("Os Hospitals foram selecionados no banco pelo Hospital  " + retorno);
-        }
-
-        return retorno
-
-    }
-
-    async deletaHospital(hospital: number){
-
-        const hospitalModel = new HospitalModel();
-        const retorno = await hospitalModel.deletaHospital(hospital);
-
-        if(retorno.length){
-            console.log("O Hospital foi deletado com sucesso com o Id " + retorno);
-        }
-
-        return retorno
-
-    }
-    
+		return retorno;
+	}
 }
 
-async function validaEntrada (dadosEntrada: number){
-    
-    try{
+async function validaEntrada(dadosEntrada: number) {
+	try {
+		const schema = Joi.object({
+			nome: Joi.string().min(4).max(150).required(),
+			telefone: Joi.string().required(),
+		});
 
-    const schema = Joi.object({
-        nome: Joi.string().min(4).max(150).required(),
-        telefone: Joi.string().required()
-
-        }
-    )
-
-    const value = await schema.validateAsync(dadosEntrada);
-    }catch(erro){
-
-    throw new Error('Erro de validação')
-    }
+		const value = await schema.validateAsync(dadosEntrada);
+	} catch (erro) {
+		throw new Error('Erro de validação');
+	}
 }

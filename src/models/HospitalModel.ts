@@ -2,44 +2,44 @@ import { dbConn } from 'src/models/conexao.js';
 import { Hospital } from 'src/@types/hospital';
 
 export class HospitalModel {
-	async insereHospital(hospital: Hospital) {
+	async insereHospital(hospital: Hospital): Promise<number> {
 		try {
-			const retorno = await dbConn('hospital').insert(hospital);
+			const retorno: number = await dbConn('hospital').insert(hospital);
 			return retorno;
 		} catch (err) {
 			throw new Error(err.message);
 		}
 	}
 
-	async alteraHospital(Id: number, hospital: Hospital) {
-		const retorno = await dbConn('hospital')
+	async alteraHospital(Id: number, hospital: Hospital): Promise<number> {
+		const retorno: number = await dbConn('hospital')
 			.update({ nome: hospital.nome, nome_contato: hospital.nome_contato, telefone: hospital.telefone })
 			.where('Id', Id);
 		return retorno;
 	}
 
-	async selecionaHospital() {
-		const retorno = await dbConn('hospital').select();
+	async selecionaHospital(): Promise<Hospital[]> {
+		const retorno: Hospital[] = await dbConn('hospital').select();
 		return retorno;
 	}
 
-	async selecionaHospitalPorId(Id: number) {
-		const retorno = await dbConn('hospital').select().where('Id', Id);
+	async selecionaHospitalPorId(Id: number): Promise<Hospital[]> {
+		const retorno: Hospital[] = await dbConn('hospital').select().where('Id', Id);
 		return retorno;
 	}
 
-	async selecionaHospitalPorNome(nome: string) {
-		const retorno = await dbConn('hospital').select().where('nome', 'Like', `%${nome}%`);
+	async selecionaHospitalPorNome(nome: string): Promise<Hospital[]> {
+		const retorno: Hospital[] = await dbConn('hospital').select().where('nome', 'Like', `%${nome}%`);
 		return retorno;
 	}
 
-	async selecionaHospitalPorCargo(Id: number) {
-		const retorno = await dbConn('hospital').select().where('cargo_Id', Id);
+	async selecionaHospitalPorCargo(Id: number): Promise<Hospital[]> {
+		const retorno: Hospital[] = await dbConn('hospital').select().where('cargo_Id', Id);
 		return retorno;
 	}
 
-	async deletaHospital(Id: number) {
-		const retorno = await dbConn('hospital').del().where('Id', Id);
+	async deletaHospital(Id: number): Promise<number> {
+		const retorno: number = await dbConn('hospital').del().where('Id', Id);
 		return retorno;
 	}
 }
