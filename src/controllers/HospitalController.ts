@@ -1,10 +1,10 @@
 import { HospitalModel } from '../models/HospitalModel.js';
-import { Hospital } from 'src/@types/hospital';
+import { Hospital } from '../@types/hospital.js';
 import Joi from 'joi';
 import { Request, Response } from 'express';
 
 export class HospitalController {
-	async insereHospital(req: Request, res: Response):Promise<any> {
+	async insereHospital(req: Request, res: Response): Promise<any> {
 		await validaEntrada(req.body);
 
 		if (req.body.nome == 'Alexandre') {

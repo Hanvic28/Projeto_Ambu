@@ -1,5 +1,5 @@
-import { dbConn } from 'src/models/conexao.js';
-import { Funcionario } from 'src/@types/funcionario';
+import { dbConn } from '../models/conexao.js';
+import { Funcionario } from '../@types/funcionario.js';
 
 export class FuncionarioModel {
 	async insereFuncionario(funcionario: Funcionario): Promise<number[]> {

@@ -1,4 +1,4 @@
-import { Cargo } from 'src/@types/cargo';
+import { Cargo } from '../@types/cargo.js';
 import { CargoModel } from '../models/CargoModel.js';
 
 class CargoController{

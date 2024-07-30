@@ -1,5 +1,5 @@
-import { dbConn } from 'src/models/conexao.js';
-import { Hospital } from 'src/@types/hospital';
+import { dbConn } from '../models/conexao.js';
+import { Hospital } from '../@types/hospital.js';
 
 export class HospitalModel {
 	async insereHospital(hospital: Hospital): Promise<number> {
