@@ -3,10 +3,10 @@ import { Funcionario } from 'src/@types/funcionario';
 
 class FuncionarioController{
 
-    async insereFuncionario(funcionario: Funcionario){
+    async insereFuncionario(funcionario: Funcionario):Promise<number[]> {
 
         const funcionarioModel = new FuncionarioModel();
-        const retorno = await funcionarioModel.insereFuncionario(funcionario);
+        const retorno: number[] = await funcionarioModel.insereFuncionario(funcionario);
 
         if(retorno.length){
             console.log("O Funcionario foi inserido no banco corretamente com o Id " + retorno);
@@ -16,12 +16,12 @@ class FuncionarioController{
 
     }
 
-    async alteraFuncionario(Id: number, funcionario: Funcionario){
+    async alteraFuncionario(Id: number, funcionario: Funcionario):Promise<number> {
 
         const funcionarioModel = new FuncionarioModel();
-        const retorno = await funcionarioModel.alteraFuncionario(Id, funcionario);
+        const retorno: number = await funcionarioModel.alteraFuncionario(Id, funcionario);
 
-        if(retorno.length){
+        if(retorno > 0){
             console.log("O Funcionario foi alterado no banco corretamente com o Id " + retorno);
         }
 
@@ -29,10 +29,10 @@ class FuncionarioController{
 
     }
 
-    async selecionaFuncionario(){
+    async selecionaFuncionario():Promise<Funcionario[]> {
 
         const funcionarioModel = new FuncionarioModel();
-        const retorno = await funcionarioModel.selecionaFuncionarios();
+        const retorno: Funcionario[] = await funcionarioModel.selecionaFuncionarios();
 
         if(retorno.length){
             console.log("Todos os Funcionarios foram selecionados");
@@ -42,10 +42,10 @@ class FuncionarioController{
 
     }
 
-    async selecionaFuncionarioPorId(funcionario: number){
+    async selecionaFuncionarioPorId(funcionario: number):Promise<Funcionario[]> {
 
         const funcionarioModel = new FuncionarioModel();
-        const retorno = await funcionarioModel.selecionaFuncionarioPorId(funcionario);
+        const retorno: Funcionario[] = await funcionarioModel.selecionaFuncionarioPorId(funcionario);
 
         if(retorno.length){
             console.log("O Funcionario foi selecionado no banco pelo Id " + retorno);
@@ -55,10 +55,10 @@ class FuncionarioController{
 
     }
 
-    async selecionaFuncionarioPorNome(funcionario: string){
+    async selecionaFuncionarioPorNome(funcionario: string):Promise<Funcionario[]> {
 
         const funcionarioModel = new FuncionarioModel();
-        const retorno = await funcionarioModel.selecionaFuncionarioPorNome(funcionario);
+        const retorno: Funcionario[] = await funcionarioModel.selecionaFuncionarioPorNome(funcionario);
 
         if(retorno.length){
             console.log("O Funcionario foi selecionado no banco pelo Nome " + retorno);
@@ -68,10 +68,10 @@ class FuncionarioController{
 
     }
 
-    async selecionaFuncionarioPorFuncionario(funcionario: number){
+    async selecionaFuncionarioPorFuncionario(funcionario: number):Promise<Funcionario[]> {
 
         const funcionarioModel = new FuncionarioModel();
-        const retorno = await funcionarioModel.selecionaFuncionarioPorCargo(funcionario);
+        const retorno: Funcionario[] = await funcionarioModel.selecionaFuncionarioPorCargo(funcionario);
 
         if(retorno.length){
             console.log("Os Funcionarios foram selecionados no banco pelo Funcionario  " + retorno);
@@ -81,12 +81,12 @@ class FuncionarioController{
 
     }
 
-    async deletaFuncionario(funcionario: number){
+    async deletaFuncionario(funcionario: number):Promise<number> {
 
         const funcionarioModel = new FuncionarioModel();
-        const retorno = await funcionarioModel.deletaFuncionario(funcionario);
+        const retorno: number = await funcionarioModel.deletaFuncionario(funcionario);
 
-        if(retorno.length){
+        if(retorno > 0){
             console.log("O Funcionario foi deletado com sucesso com o Id " + retorno);
         }
 

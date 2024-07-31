@@ -4,7 +4,7 @@ import Joi from 'joi';
 import { Request, Response } from 'express';
 
 export class HospitalController {
-	async insereHospital(req: Request, res: Response) {
+	async insereHospital(req: Request, res: Response):Promise<any> {
 		await validaEntrada(req.body);
 
 		if (req.body.nome == 'Alexandre') {
@@ -12,7 +12,7 @@ export class HospitalController {
 		}
 
 		const hospitalModel = new HospitalModel();
-		const retorno = await hospitalModel.insereHospital(req.body);
+		const retorno: number = await hospitalModel.insereHospital(req.body);
 
 		res.status(201).send('Objeto Inserido ' + retorno);
 	}
@@ -50,9 +50,9 @@ export class HospitalController {
 		return retorno;
 	}
 
-	async selecionaHospitalPorNome(hospital: string) {
+	async selecionaHospitalPorNome(hospital: string): Promise<Hospital[]> {
 		const hospitalModel = new HospitalModel();
-		const retorno = await hospitalModel.selecionaHospitalPorNome(hospital);
+		const retorno: Hospital[] = await hospitalModel.selecionaHospitalPorNome(hospital);
 
 		if (retorno.length) {
 			console.log('O Hospital foi selecionado no banco pelo Nome ' + retorno);
@@ -61,9 +61,9 @@ export class HospitalController {
 		return retorno;
 	}
 
-	async selecionaHospitalPorHospital(hospital: number) {
+	async selecionaHospitalPorHospital(hospital: number): Promise<Hospital[]> {
 		const hospitalModel = new HospitalModel();
-		const retorno = await hospitalModel.selecionaHospitalPorCargo(hospital);
+		const retorno: Hospital[] = await hospitalModel.selecionaHospitalPorCargo(hospital);
 
 		if (retorno.length) {
 			console.log('Os Hospitals foram selecionados no banco pelo Hospital  ' + retorno);
@@ -84,14 +84,14 @@ export class HospitalController {
 	}
 }
 
-async function validaEntrada(dadosEntrada: number) {
+async function validaEntrada(dadosEntrada: number): Promise<any> {
 	try {
 		const schema = Joi.object({
 			nome: Joi.string().min(4).max(150).required(),
 			telefone: Joi.string().required(),
 		});
 
-		const value = await schema.validateAsync(dadosEntrada);
+		const value: any = await schema.validateAsync(dadosEntrada);
 	} catch (erro) {
 		throw new Error('Erro de validação');
 	}

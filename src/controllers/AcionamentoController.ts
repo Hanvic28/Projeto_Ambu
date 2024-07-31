@@ -3,10 +3,10 @@ import { AcionamentoModel } from '../models/AcionamentoModel.js';
 
 class AcionamentoController{
 
-    async insereacionamento(acionamento: Acionamento){
+    async insereacionamento(acionamento: Acionamento):Promise<number[]> {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.insereAcionamento(acionamento);
+        const retorno: number[] = await acionamentoModel.insereAcionamento(acionamento);
 
         if(retorno.length){
             console.log("O Acionamento foi inserido no banco corretamente com o Id " + retorno);
@@ -16,12 +16,12 @@ class AcionamentoController{
 
     }
 
-    async alteraAcionamento(Id: number, acionamento: Acionamento) {
+    async alteraAcionamento(Id: number, acionamento: Acionamento):Promise<number> {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.alteraAcionamento(Id, acionamento);
+        const retorno: number = await acionamentoModel.alteraAcionamento(Id, acionamento);
 
-        if(retorno.length){
+        if(retorno > 0){
             console.log("O Acionamento foi alterado no banco corretamente com o Id " + retorno);
         }
 
@@ -29,10 +29,10 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamento(acionamento: Acionamento){
+    async selecionaAcionamento(acionamento: Acionamento):Promise<Acionamento[]> {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.selecionaAcionamentos(acionamento);
+        const retorno: Acionamento[] = await acionamentoModel.selecionaAcionamentos(acionamento);
 
         if(retorno.length){
             console.log("Todos os Acionamentos foram selecionados");
@@ -42,10 +42,10 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamentoPorId(acionamento: number){
+    async selecionaAcionamentoPorId(acionamento: number):Promise<Acionamento[]> {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.selecionaAcionamentoPorId(acionamento);
+        const retorno: Acionamento[] = await acionamentoModel.selecionaAcionamentoPorId(acionamento);
 
         if(retorno.length){
             console.log("O Acionamento foi selecionado no banco pelo Id " + retorno);
@@ -55,10 +55,10 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamentoPorNome(acionamento: string){
+    async selecionaAcionamentoPorNome(acionamento: string):Promise<Acionamento[]> {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.selecionaAcionamentoPorNome(acionamento);
+        const retorno: Acionamento[] = await acionamentoModel.selecionaAcionamentoPorNome(acionamento);
 
         if(retorno.length){
             console.log("O Acionamento foi selecionado no banco pelo Nome " + retorno);
@@ -68,10 +68,10 @@ class AcionamentoController{
 
     }
 
-    async selecionaAcionamentoPoracionamento(acionamento: number){
+    async selecionaAcionamentoPoracionamento(acionamento: number):Promise<Acionamento[]> {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.selecionaAcionamentoPorCargo(acionamento);
+        const retorno: Acionamento[] = await acionamentoModel.selecionaAcionamentoPorCargo(acionamento);
 
         if(retorno.length){
             console.log("Os Acionamentos foram selecionados no banco pelo acionamento  " + retorno);
@@ -81,12 +81,12 @@ class AcionamentoController{
 
     }
 
-    async deletaAcionamento(acionamento: number){
+    async deletaAcionamento(acionamento: number):Promise<number> {
 
         const acionamentoModel = new AcionamentoModel();
-        const retorno = await acionamentoModel.deletaAcionamento(acionamento);
+        const retorno: number = await acionamentoModel.deletaAcionamento(acionamento);
 
-        if(retorno.length){
+        if(retorno > 0){
             console.log("O Acionamento foi deletado com sucesso com o Id " + retorno);
         }
 

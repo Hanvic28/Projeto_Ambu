@@ -3,10 +3,10 @@ import { CargoModel } from '../models/CargoModel.js';
 
 class CargoController{
 
-    async insereCargo(cargo: Cargo){
+    async insereCargo(cargo: Cargo):Promise<number[]> {
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.insereCargo(cargo);
+        const retorno: number[] = await cargoModel.insereCargo(cargo);
 
         if(retorno.length){
             console.log("O Cargo foi inserido no banco corretamente com o Id " + retorno);
@@ -16,12 +16,12 @@ class CargoController{
 
     }
 
-    async alteraCargo(Id: number, cargo: Cargo){
+    async alteraCargo(Id: number, cargo: Cargo):Promise<number> {
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.alteraCargo(Id, cargo);
+        const retorno: number = await cargoModel.alteraCargo(Id, cargo);
 
-        if(retorno.length){
+        if(retorno > 0){
             console.log("O Cargo foi alterado no banco corretamente com o Id " + retorno);
         }
 
@@ -29,10 +29,10 @@ class CargoController{
 
     }
 
-    async selecionaCargo(){
+    async selecionaCargo():Promise<Cargo[]> {
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.selecionaCargos();
+        const retorno: Cargo[] = await cargoModel.selecionaCargos();
 
         if(retorno.length){
             console.log("Todos os cargos foram selecionados");
@@ -42,10 +42,10 @@ class CargoController{
 
     }
 
-    async selecionaCargoPorId(cargo: number){
+    async selecionaCargoPorId(cargo: number):Promise<Cargo[]> {
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.selecionaCargoPorId(cargo);
+        const retorno: Cargo[] = await cargoModel.selecionaCargoPorId(cargo);
 
         if(retorno.length){
             console.log("O Cargo foi selecionado no banco pelo Id " + retorno);
@@ -55,10 +55,10 @@ class CargoController{
 
     }
 
-    async selecionaCargoPorNome(cargo: string){
+    async selecionaCargoPorNome(cargo: string):Promise<Cargo[]> {
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.selecionaCargoPorNome(cargo);
+        const retorno: Cargo[] = await cargoModel.selecionaCargoPorNome(cargo);
 
         if(retorno.length){
             console.log("O Cargo foi selecionado no banco pelo Nome " + retorno);
@@ -68,10 +68,10 @@ class CargoController{
 
     }
 
-    async selecionaCargoPorCargo(cargo: number){
+    async selecionaCargoPorCargo(cargo: number):Promise<Cargo[]> {
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.selecionaCargoPorCargo(cargo);
+        const retorno: Cargo[] = await cargoModel.selecionaCargoPorCargo(cargo);
 
         if(retorno.length){
             console.log("Os Cargos foram selecionados no banco pelo Cargo  " + retorno);
@@ -81,12 +81,12 @@ class CargoController{
 
     }
 
-    async deletaCargo(cargo: number){
+    async deletaCargo(cargo: number):Promise<number> {
 
         const cargoModel = new CargoModel();
-        const retorno = await cargoModel.deletaCargo(cargo);
+        const retorno: number = await cargoModel.deletaCargo(cargo);
 
-        if(retorno.length){
+        if(retorno > 0){
             console.log("O Cargo foi deletado com sucesso com o Id " + retorno);
         }
 
